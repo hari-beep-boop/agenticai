@@ -1,0 +1,14 @@
+{
+  "spend_cap": 400,
+  "spent": 1,
+  "receipts": [
+    {
+      "service_name": "Weather Oracle API",
+      "cost": 1,
+      "tx_id": "RA5ZHNUSJDFINZRSY6NODB6CGXBWZLCFO7COCV65IP23X2WJZ5MA",
+      "status": "Confirmed",
+      "response": "Forecast confidence 94%, precipitation risk low, wind volatility moderate.",
+      "timestamp": "2026-04-07T00:30:44.301202+00:00"
+    }
+  ]
+}

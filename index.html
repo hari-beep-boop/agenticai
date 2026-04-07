@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Agentic Service Buyer</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="noise"></div>
+  <div class="layout-shell">
+    <header class="hero">
+      <nav class="topbar">
+        <div class="brand-mark">
+          <span class="brand-mark__code">AC-03</span>
+          <span class="brand-mark__name">Agentic Service Buyer</span>
+        </div>
+        <div class="topbar__meta">
+          <span class="status-chip" id="apiStatus">Backend offline</span>
+          <span class="status-chip status-chip--ghost" id="geminiStatus">Gemini not configured</span>
+        </div>
+      </nav>
+
+      <div class="hero__grid">
+        <section class="hero__copy">
+          <p class="eyebrow">Autonomous Commerce Control Plane</p>
+          <h1>Machine-auditable service purchases with AI-assisted intent drafting.</h1>
+          <p class="hero__lede">
+            Discover payable services, enforce policy caps, compose Gemini-generated purchase intent,
+            simulate Algorand confirmation, and retain receipts in one sharp buyer console.
+          </p>
+
+          <div class="hero__actions">
+            <a href="#serviceRegistry" class="button button--primary">Launch purchase flow</a>
+            <a href="#aiCopilot" class="button button--secondary">Open Gemini copilot</a>
+          </div>
+
+          <div class="hero__metrics">
+            <article class="metric-card">
+              <span class="metric-card__label">Spend cap</span>
+              <strong id="heroCapValue">0 ALGO</strong>
+            </article>
+            <article class="metric-card">
+              <span class="metric-card__label">Spent today</span>
+              <strong id="heroSpentValue">0 ALGO</strong>
+            </article>
+            <article class="metric-card">
+              <span class="metric-card__label">Receipts</span>
+              <strong id="heroReceiptCount">0</strong>
+            </article>
+          </div>
+        </section>
+
+        <aside class="hero__rail glass-card">
+          <p class="panel-kicker">Execution loop</p>
+          <ol class="loop-steps">
+            <li>Discover service and price from registry</li>
+            <li>Validate policy limits before payment</li>
+            <li>Build machine-readable purchase tag</li>
+            <li>Submit payment intent for confirmation</li>
+            <li>Consume service output after confirmation</li>
+            <li>Persist receipt and update running spend</li>
+          </ol>
+          <div class="network-mini-grid">
+            <div>
+              <span>Network</span>
+              <strong id="networkValue">TestNet</strong>
+            </div>
+            <div>
+              <span>Registry size</span>
+              <strong id="registryCount">0 services</strong>
+            </div>
+            <div>
+              <span>Payment rail</span>
+              <strong>ALGO / ASA-ready</strong>
+            </div>
+            <div>
+              <span>Audit mode</span>
+              <strong>Receipt log active</strong>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </header>
+
+    <main class="main-grid">
+      <section class="glass-card section-card section-card--wide" id="serviceRegistry">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">Registry</p>
+            <h2>Available services</h2>
+          </div>
+          <div class="section-head__meta">
+            <span>Wallet: <strong id="walletValue">Loading...</strong></span>
+            <span>Indexer: <strong id="indexerValue">Loading...</strong></span>
+          </div>
+        </div>
+
+        <div id="serviceGrid" class="service-grid"></div>
+      </section>
+
+      <section class="glass-card section-card">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">Policy Engine</p>
+            <h2>Spend controls</h2>
+          </div>
+        </div>
+
+        <label class="field">
+          <span>Session cap (ALGO)</span>
+          <input id="spendCapInput" type="number" min="1" step="1" placeholder="Set a spend ceiling">
+        </label>
+        <button id="saveCapButton" class="button button--primary button--full">Update policy cap</button>
+
+        <div class="meter-card">
+          <div class="meter-card__row">
+            <span>Consumed</span>
+            <strong id="spentValue">0 ALGO</strong>
+          </div>
+          <div class="meter">
+            <div id="budgetFill" class="meter__fill"></div>
+          </div>
+          <div class="meter-card__row">
+            <span>Cap</span>
+            <strong id="capValue">0 ALGO</strong>
+          </div>
+        </div>
+
+        <div class="stacked-note">
+          <strong>Policy rule</strong>
+          <p>Purchases are blocked before payment if the projected total exceeds the configured cap.</p>
+        </div>
+      </section>
+
+      <section class="glass-card section-card" id="aiCopilot">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">Gemini Copilot</p>
+            <h2>Draft purchase intent</h2>
+          </div>
+        </div>
+
+        <label class="field">
+          <span>Objective</span>
+          <textarea id="intentInput" rows="5" placeholder="Describe the service goal, constraints, and desired response shape."></textarea>
+        </label>
+
+        <button id="generateIntentButton" class="button button--accent button--full">Generate buyer brief</button>
+
+        <div class="stacked-note stacked-note--highlight">
+          <strong>AI output</strong>
+          <p id="intentOutput">Gemini can turn a rough goal into a compact purchase brief and machine-readable tag.</p>
+        </div>
+      </section>
+
+      <section class="glass-card section-card">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">Execution</p>
+            <h2>Current transaction</h2>
+          </div>
+        </div>
+
+        <div id="transactionCard" class="transaction-card transaction-card--idle">
+          <p class="transaction-card__title">Waiting for a service selection</p>
+          <p class="transaction-card__copy">Choose a listing from the registry to run the payment-confirm-consume loop.</p>
+        </div>
+        <ul id="timeline" class="timeline"></ul>
+      </section>
+
+      <section class="glass-card section-card section-card--wide">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">Blockchain Tooling</p>
+            <h2>AlgoKit integration map</h2>
+          </div>
+        </div>
+
+        <div class="tool-grid">
+          <article class="tool-card">
+            <h3>AlgoKit</h3>
+            <p>Use your installed QuickStart workspace for contract deployment, generated clients, and frontend card wiring.</p>
+          </article>
+          <article class="tool-card">
+            <h3>Algod + Indexer</h3>
+            <p>Frontend and backend config support TestNet endpoints for registry reads, confirmations, and history checks.</p>
+          </article>
+          <article class="tool-card">
+            <h3>Pinata</h3>
+            <p>Environment placeholders are included so NFT or metadata upload flows can plug in without reshaping the app.</p>
+          </article>
+          <article class="tool-card">
+            <h3>Gemini API</h3>
+            <p>Python routes are ready for generative purchase intent, operator summaries, and future service response analysis.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="glass-card section-card section-card--wide">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">Receipts</p>
+            <h2>Persistent purchase log</h2>
+          </div>
+          <button id="clearLogButton" class="button button--ghost">Clear receipts</button>
+        </div>
+
+        <div class="table-wrap">
+          <table class="receipt-table">
+            <thead>
+              <tr>
+                <th>Service</th>
+                <th>Cost</th>
+                <th>Tx ID</th>
+                <th>Status</th>
+                <th>Response</th>
+                <th>Time</th>
+              </tr>
+            </thead>
+            <tbody id="receiptTableBody"></tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <template id="serviceCardTemplate">
+    <article class="service-card">
+      <div class="service-card__header">
+        <div>
+          <p class="service-card__name"></p>
+          <p class="service-card__description"></p>
+        </div>
+        <span class="service-card__price"></span>
+      </div>
+
+      <div class="service-card__chips">
+        <span class="tag tag--strong service-card__category"></span>
+        <span class="tag service-card__address"></span>
+      </div>
+
+      <dl class="service-card__facts">
+        <div>
+          <dt>Latency</dt>
+          <dd class="service-card__latency"></dd>
+        </div>
+        <div>
+          <dt>Settlement</dt>
+          <dd class="service-card__settlement"></dd>
+        </div>
+      </dl>
+
+      <button class="button button--primary service-card__action">Purchase service</button>
+    </article>
+  </template>
+
+  <script src="script.js"></script>
+</body>
+</html>

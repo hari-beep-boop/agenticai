@@ -1,0 +1,643 @@
+:root {
+  --bg: #09111f;
+  --bg-soft: #111d31;
+  --panel: rgba(10, 19, 34, 0.72);
+  --panel-strong: rgba(16, 28, 49, 0.92);
+  --line: rgba(157, 188, 255, 0.16);
+  --text: #f3f7ff;
+  --muted: #9db2d6;
+  --accent: #55e6c1;
+  --accent-2: #6ab7ff;
+  --accent-3: #ffb566;
+  --danger: #ff7f7f;
+  --success: #83f3a5;
+  --shadow: 0 30px 90px rgba(0, 0, 0, 0.35);
+  --radius-xl: 28px;
+  --radius-lg: 22px;
+  --radius-md: 16px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  color: var(--text);
+  font-family: "Segoe UI", "Trebuchet MS", sans-serif;
+  background:
+    radial-gradient(circle at top left, rgba(85, 230, 193, 0.12), transparent 26%),
+    radial-gradient(circle at 80% 10%, rgba(106, 183, 255, 0.18), transparent 24%),
+    radial-gradient(circle at bottom right, rgba(255, 181, 102, 0.12), transparent 22%),
+    linear-gradient(160deg, #07101c 0%, #081526 48%, #0b1223 100%);
+}
+
+button,
+input,
+textarea {
+  font: inherit;
+}
+
+.noise {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.18;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+  background-size: 22px 22px;
+}
+
+.layout-shell {
+  position: relative;
+  width: min(1320px, calc(100% - 32px));
+  margin: 0 auto;
+  padding: 28px 0 42px;
+}
+
+.glass-card,
+.hero {
+  border: 1px solid var(--line);
+  background: linear-gradient(180deg, rgba(11, 21, 37, 0.9), rgba(8, 16, 29, 0.76));
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(18px);
+}
+
+.hero {
+  position: relative;
+  overflow: hidden;
+  border-radius: 34px;
+  padding: 28px;
+}
+
+.hero::before,
+.hero::after {
+  content: "";
+  position: absolute;
+  border-radius: 999px;
+  filter: blur(14px);
+}
+
+.hero::before {
+  width: 260px;
+  height: 260px;
+  right: -40px;
+  top: -60px;
+  background: rgba(106, 183, 255, 0.18);
+}
+
+.hero::after {
+  width: 220px;
+  height: 220px;
+  left: -60px;
+  bottom: -90px;
+  background: rgba(85, 230, 193, 0.16);
+}
+
+.topbar,
+.section-head,
+.hero__actions,
+.hero__metrics,
+.service-card__header,
+.meter-card__row,
+.section-head__meta {
+  display: flex;
+  gap: 14px;
+}
+
+.topbar,
+.section-head {
+  justify-content: space-between;
+  align-items: center;
+}
+
+.brand-mark {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.brand-mark__code,
+.status-chip,
+.eyebrow,
+.tag,
+.receipt-table th,
+.timeline__step,
+.field span,
+.panel-kicker {
+  font-family: Consolas, "Courier New", monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.brand-mark__code {
+  padding: 10px 12px;
+  border-radius: 14px;
+  color: #03131e;
+  background: linear-gradient(135deg, var(--accent), #dffff7);
+  font-size: 0.76rem;
+  font-weight: 700;
+}
+
+.brand-mark__name {
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.topbar__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.status-chip {
+  padding: 9px 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(131, 243, 165, 0.16);
+  background: rgba(131, 243, 165, 0.09);
+  color: var(--success);
+  font-size: 0.72rem;
+}
+
+.status-chip--ghost {
+  border-color: rgba(157, 188, 255, 0.16);
+  background: rgba(157, 188, 255, 0.09);
+  color: var(--muted);
+}
+
+.hero__grid {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1.3fr) 380px;
+  gap: 22px;
+  margin-top: 28px;
+}
+
+.eyebrow,
+.panel-kicker,
+.metric-card__label {
+  margin: 0 0 10px;
+  font-size: 0.74rem;
+  color: var(--accent);
+}
+
+h1,
+h2,
+h3,
+p,
+dl,
+dd {
+  margin-top: 0;
+}
+
+h1 {
+  max-width: 12ch;
+  margin-bottom: 16px;
+  font-size: clamp(2.4rem, 5vw, 5rem);
+  line-height: 0.92;
+}
+
+h2 {
+  margin-bottom: 0;
+  font-size: 1.4rem;
+}
+
+h3 {
+  margin-bottom: 10px;
+  font-size: 1.05rem;
+}
+
+.hero__lede,
+.service-card__description,
+.transaction-card__copy,
+.tool-card p,
+.stacked-note p,
+.loop-steps,
+td {
+  color: var(--muted);
+}
+
+.hero__lede {
+  max-width: 58ch;
+  font-size: 1.02rem;
+  line-height: 1.7;
+}
+
+.hero__actions {
+  flex-wrap: wrap;
+  margin-top: 24px;
+}
+
+.button {
+  border: 0;
+  border-radius: 16px;
+  padding: 13px 18px;
+  color: var(--text);
+  cursor: pointer;
+  text-decoration: none;
+  transition: transform 160ms ease, box-shadow 160ms ease, opacity 160ms ease;
+}
+
+.button:hover {
+  transform: translateY(-1px);
+}
+
+.button:disabled {
+  opacity: 0.58;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.button--primary {
+  background: linear-gradient(135deg, var(--accent), #1fddff);
+  color: #03131e;
+  box-shadow: 0 16px 30px rgba(85, 230, 193, 0.16);
+  font-weight: 700;
+}
+
+.button--secondary,
+.button--ghost {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.button--accent {
+  background: linear-gradient(135deg, var(--accent-3), #ff8f70);
+  color: #1f1202;
+  font-weight: 700;
+}
+
+.button--full {
+  width: 100%;
+}
+
+.hero__metrics {
+  flex-wrap: wrap;
+  margin-top: 26px;
+}
+
+.metric-card,
+.tool-card,
+.stacked-note,
+.transaction-card,
+.service-card,
+.meter-card {
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+}
+
+.metric-card {
+  min-width: 160px;
+  padding: 16px;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.metric-card strong {
+  font-size: 1.3rem;
+}
+
+.hero__rail {
+  padding: 22px;
+  border-radius: var(--radius-xl);
+}
+
+.loop-steps {
+  margin: 14px 0 20px;
+  padding-left: 18px;
+  display: grid;
+  gap: 10px;
+}
+
+.network-mini-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.network-mini-grid span,
+.meter-card__row span,
+.section-head__meta,
+.service-card__facts dt {
+  color: var(--muted);
+}
+
+.network-mini-grid strong {
+  display: block;
+  margin-top: 6px;
+}
+
+.main-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) 360px;
+  gap: 22px;
+  margin-top: 24px;
+}
+
+.section-card {
+  border-radius: var(--radius-xl);
+  padding: 22px;
+}
+
+.section-card--wide {
+  min-width: 0;
+}
+
+.section-head {
+  margin-bottom: 18px;
+}
+
+.section-head__meta {
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  text-align: right;
+  font-size: 0.92rem;
+}
+
+.service-grid,
+.tool-grid {
+  display: grid;
+  gap: 18px;
+}
+
+.service-grid {
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+}
+
+.service-card {
+  padding: 18px;
+  background: linear-gradient(180deg, rgba(18, 31, 52, 0.92), rgba(11, 19, 33, 0.94));
+  display: grid;
+  gap: 18px;
+}
+
+.service-card__name {
+  margin-bottom: 8px;
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+.service-card__price {
+  align-self: start;
+  padding: 9px 12px;
+  border-radius: 999px;
+  background: rgba(255, 181, 102, 0.12);
+  color: #ffd4a1;
+  font-weight: 700;
+}
+
+.service-card__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 10px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text);
+  font-size: 0.69rem;
+}
+
+.tag--strong {
+  background: rgba(85, 230, 193, 0.12);
+  color: var(--accent);
+}
+
+.service-card__facts {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin: 0;
+}
+
+.service-card__facts div {
+  padding: 14px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.service-card__facts dt {
+  margin-bottom: 8px;
+  font-size: 0.78rem;
+}
+
+.service-card__facts dd {
+  margin: 0;
+  font-weight: 700;
+}
+
+.field {
+  display: grid;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.field input,
+.field textarea {
+  width: 100%;
+  padding: 14px 16px;
+  border-radius: 16px;
+  border: 1px solid rgba(157, 188, 255, 0.14);
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--text);
+  resize: vertical;
+}
+
+.field input::placeholder,
+.field textarea::placeholder {
+  color: rgba(157, 178, 214, 0.72);
+}
+
+.meter-card,
+.stacked-note {
+  padding: 16px;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.meter-card {
+  margin: 18px 0;
+}
+
+.meter {
+  height: 14px;
+  overflow: hidden;
+  border-radius: 999px;
+  margin: 12px 0;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.meter__fill {
+  height: 100%;
+  width: 0;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--accent), var(--accent-3));
+  transition: width 220ms ease;
+}
+
+.stacked-note strong {
+  display: block;
+  margin-bottom: 8px;
+}
+
+.stacked-note--highlight {
+  background: linear-gradient(135deg, rgba(255, 181, 102, 0.12), rgba(106, 183, 255, 0.08));
+}
+
+.transaction-card {
+  padding: 18px;
+  margin-bottom: 18px;
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.transaction-card--active {
+  border-color: rgba(131, 243, 165, 0.26);
+  background: linear-gradient(135deg, rgba(131, 243, 165, 0.08), rgba(255, 255, 255, 0.03));
+}
+
+.transaction-card--blocked {
+  border-color: rgba(255, 127, 127, 0.26);
+  background: linear-gradient(135deg, rgba(255, 127, 127, 0.08), rgba(255, 255, 255, 0.03));
+}
+
+.transaction-card__title {
+  margin-bottom: 8px;
+  font-size: 1.08rem;
+  font-weight: 700;
+}
+
+.timeline {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 12px;
+}
+
+.timeline li {
+  padding: 12px 14px;
+  border: 1px solid rgba(157, 188, 255, 0.12);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.timeline__step {
+  display: block;
+  margin-bottom: 6px;
+  color: var(--accent);
+  font-size: 0.7rem;
+}
+
+.tool-grid {
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+
+.tool-card {
+  padding: 18px;
+  background: linear-gradient(180deg, rgba(18, 31, 52, 0.92), rgba(11, 19, 33, 0.94));
+}
+
+.table-wrap {
+  overflow: auto;
+}
+
+.receipt-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.receipt-table th,
+.receipt-table td {
+  text-align: left;
+  padding: 14px 10px;
+  border-bottom: 1px solid rgba(157, 188, 255, 0.12);
+  vertical-align: top;
+}
+
+.receipt-table th {
+  font-size: 0.7rem;
+  color: var(--muted);
+}
+
+.status-badge {
+  display: inline-flex;
+  padding: 7px 10px;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.status-badge--confirmed {
+  color: var(--success);
+  background: rgba(131, 243, 165, 0.12);
+}
+
+.status-badge--rejected {
+  color: var(--danger);
+  background: rgba(255, 127, 127, 0.12);
+}
+
+.empty-state {
+  padding: 28px 10px;
+  text-align: center;
+  color: var(--muted);
+}
+
+code {
+  color: #bdd7ff;
+}
+
+@media (max-width: 1100px) {
+  .hero__grid,
+  .main-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 720px) {
+  .layout-shell {
+    width: min(100% - 18px, 1320px);
+    padding-top: 18px;
+  }
+
+  .hero,
+  .section-card {
+    padding: 18px;
+    border-radius: 24px;
+  }
+
+  .topbar,
+  .section-head,
+  .service-card__header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .section-head__meta {
+    text-align: left;
+    justify-content: flex-start;
+  }
+
+  h1 {
+    max-width: none;
+    line-height: 1;
+  }
+
+  .button,
+  .service-card__action {
+    width: 100%;
+  }
+
+  .network-mini-grid,
+  .service-card__facts {
+    grid-template-columns: 1fr;
+  }
+}
