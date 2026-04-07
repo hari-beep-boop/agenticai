@@ -16,7 +16,7 @@ from algosdk import mnemonic, account, transaction
 ROOT_DIR = Path(__file__).resolve().parent.parent
 STORAGE_PATH = Path(__file__).resolve().parent / "storage.json"
 HOST = "0.0.0.0"
-PORT = 8000
+PORT = int(os.environ.get("PORT", 8000))
 
 # 🔑 Blockchain setup
 sender_mnemonic = "furnace ladder wet girl swap thank else inside episode walk defense gasp clarify permit term power horse ordinary stamp hybrid monkey tree segment above lion"
